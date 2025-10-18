@@ -24,8 +24,6 @@ python main.py
 
 jupyter lab feature_analysis.ipynb
 
-```
-
 ## Features & Capabilities
 
 - **Multiple Feature Extraction Methods**: Raw pixels, HOG descriptors, and CNN features
@@ -45,8 +43,6 @@ jupyter lab feature_analysis.ipynb
 
 ## Project Structure
 
-```
-
 cifar-representations/
 ├── feature_analysis.ipynb # Interactive analysis and experiments
 ├── main.py # Main execution script
@@ -61,8 +57,6 @@ cifar-representations/
 │ └── vgg11_bn.pt # VGG-11 with batch normalization
 └── datasets/ # CIFAR-10 dataset (auto-downloaded)
 └── cifar-10-batches-py/ # Raw CIFAR-10 data files
-
-````
 
 ## Requirements
 
@@ -88,7 +82,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 git clone https://github.com/micben-cs/image-representation.git
 cd image-representation
 uv sync
-````
+```
 
 ### Using pip
 
@@ -223,7 +217,3 @@ If you use this code in your research, please cite:
 ## License
 
 This project is for educational purposes. Dataset and model weights follow their respective licenses.
-
-```
-
-```
