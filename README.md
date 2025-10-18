@@ -12,14 +12,18 @@ cd image-representation
 # Install dependencies using uv (recommended)
 uv sync
 
-# Or using pip
-pip install -e .
+```
+
+### Using pip
 
 # Run the main analysis
+
 python main.py
 
 # Or explore interactively
+
 jupyter lab feature_analysis.ipynb
+
 ```
 
 ## Features & Capabilities
@@ -42,21 +46,21 @@ jupyter lab feature_analysis.ipynb
 ## Project Structure
 
 ```
+
 cifar-representations/
-├── feature_analysis.ipynb   # Interactive analysis and experiments
-├── main.py                  # Main execution script
-├── dataset.py               # CIFAR-10 data loading and preprocessing
-├── extract_feature.py       # Feature extraction implementations
-├── vgg_network.py           # VGG-11 neural network architecture
-├── visual_nn_results.py     # Results visualization utilities
-├── path.py                  # Path configuration management
-├── pyproject.toml           # Project dependencies and metadata
-├── uv.lock                  # Dependency lock file
-├── models/                  # Pretrained model weights
-│   └── vgg11_bn.pt          # VGG-11 with batch normalization
-└── datasets/                # CIFAR-10 dataset (auto-downloaded)
-    └── cifar-10-batches-py/ # Raw CIFAR-10 data files
-```
+├── feature_analysis.ipynb # Interactive analysis and experiments
+├── main.py # Main execution script
+├── dataset.py # CIFAR-10 data loading and preprocessing
+├── extract_feature.py # Feature extraction implementations
+├── vgg_network.py # VGG-11 neural network architecture
+├── visual_nn_results.py # Results visualization utilities
+├── path.py # Path configuration management
+├── pyproject.toml # Project dependencies and metadata
+├── uv.lock # Dependency lock file
+├── models/ # Pretrained model weights
+│ └── vgg11_bn.pt # VGG-11 with batch normalization
+└── datasets/ # CIFAR-10 dataset (auto-downloaded)
+└── cifar-10-batches-py/ # Raw CIFAR-10 data files
 
 ````
 
@@ -84,7 +88,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 git clone https://github.com/micben-cs/image-representation.git
 cd image-representation
 uv sync
-```
+````
 
 ### Using pip
 
@@ -124,16 +128,19 @@ pip install -e .
 ### Running the Analysis
 
 **Command Line Interface:**
+
 ```bash
 python main.py
 ```
 
 **Interactive Analysis:**
+
 ```bash
 jupyter lab feature_analysis.ipynb
 ```
 
 The analysis pipeline includes:
+
 - Automatic CIFAR-10 dataset downloading and preprocessing
 - Feature extraction across multiple representation methods
 - k-NN classification evaluation with performance metrics
@@ -216,4 +223,7 @@ If you use this code in your research, please cite:
 ## License
 
 This project is for educational purposes. Dataset and model weights follow their respective licenses.
-````
+
+```
+
+```
