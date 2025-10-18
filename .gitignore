@@ -1,0 +1,37 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+*.egg-info
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Environment files
+.env
+# IDE files
+.vscode/
+.idea/
+# macOS files
+.DS_Store
+# Logs
+*.log
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# mypy cache
+.mypy_cache/
+
+# Datasets (large files, reproducibly downloadable)
+datasets/
+
+# Cached features (large files, reproducibly generated)
+features/
+
+# Model files (large files, can be downloaded)
+models/
