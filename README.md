@@ -6,8 +6,8 @@ A comprehensive study comparing different image feature representations for visu
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
-cd cifar-representations
+git clone https://github.com/micben-cs/image-representation.git
+cd image-representation
 
 # Install dependencies using uv (recommended)
 uv sync
@@ -81,16 +81,16 @@ All dependencies are managed via `pyproject.toml` with locked versions in `uv.lo
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Clone and setup the project
-git clone <your-repo-url>
-cd cifar-representations
+git clone https://github.com/micben-cs/image-representation.git
+cd image-representation
 uv sync
 ```
 
 ### Using pip
 
 ```bash
-git clone <your-repo-url>
-cd cifar-representations
+git clone https://github.com/micben-cs/image-representation.git
+cd image-representation
 pip install -e .
 ```
 
@@ -198,11 +198,11 @@ We welcome contributions! Please feel free to:
 If you use this code in your research, please cite:
 
 ```bibtex
-@software{cifar_representations,
-  title={CIFAR-10 Feature Representation Analysis},
-  author={Your Name},
+@software{image_representation_analysis,
+  title={Image Representation Analysis},
+  author={micben-cs},
   year={2025},
-  url={https://github.com/yourusername/cifar-representations}
+  url={https://github.com/micben-cs/image-representation}
 }
 ```
 
