@@ -43,20 +43,23 @@ jupyter lab feature_analysis.ipynb
 
 ## Project Structure
 
+```
 cifar-representations/
-├── feature_analysis.ipynb # Interactive analysis and experiments
-├── main.py # Main execution script
-├── dataset.py # CIFAR-10 data loading and preprocessing
-├── extract_feature.py # Feature extraction implementations
-├── vgg_network.py # VGG-11 neural network architecture
-├── visual_nn_results.py # Results visualization utilities
-├── path.py # Path configuration management
-├── pyproject.toml # Project dependencies and metadata
-├── uv.lock # Dependency lock file
-├── models/ # Pretrained model weights
-│ └── vgg11_bn.pt # VGG-11 with batch normalization
-└── datasets/ # CIFAR-10 dataset (auto-downloaded)
-└── cifar-10-batches-py/ # Raw CIFAR-10 data files
+├── feature_analysis.ipynb          ← Interactive analysis and experiments
+├── main.py                         ← Main execution script
+├── dataset.py                      ← CIFAR-10 data loading and preprocessing
+├── extract_feature.py              ← Feature extraction implementations
+├── vgg_network.py                  ← VGG-11 neural network architecture
+├── visual_nn_results.py            ← Results visualization utilities
+├── path.py                         ← Path configuration management
+├── pyproject.toml                  ← Project dependencies and metadata
+├── uv.lock                         ← Dependency lock file
+├── models/                         ← Pretrained model weights (auto-downloaded)
+│   └── vgg11_bn.pt                 ← VGG-11 with batch normalization
+├── datasets/                       ← CIFAR-10 dataset (auto-downloaded)
+├── features/                       ← Extracted features cache (.gitignored)
+└── __pycache__/                    ← Python cache files (.gitignored)
+```
 
 ## Requirements
 
