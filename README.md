@@ -60,7 +60,7 @@ image-representation-analysis/
 - `requests`
 - `torchinfo`
 
-Dependencies are defined in [pyproject.toml](/Users/haykw/Local/image-representation-analysis/pyproject.toml).
+Dependencies are defined in [pyproject.toml](../image-representation-analysis/pyproject.toml).
 
 ## Installation
 
@@ -78,7 +78,7 @@ pip install -e .
 
 ## Running the Analysis
 
-The main workflow lives in [notebooks/feature_analysis.ipynb](/Users/haykw/Local/image-representation-analysis/notebooks/feature_analysis.ipynb).
+The main workflow lives in [notebooks/feature_analysis.ipynb](../image-representation-analysis/notebooks/feature_analysis.ipynb).
 
 Start Jupyter:
 
@@ -135,35 +135,35 @@ visualize_nearest_neighbors(
 
 - CIFAR-10 is downloaded into `datasets/cifar-10-batches-py/`
 - Cached feature arrays are stored in `features/*.npz`
-- A local CIFAR-10 VGG checkpoint is expected at `models/vgg11_bn.pt` when using functions from [src/vgg_network.py](/Users/haykw/Local/image-representation-analysis/src/vgg_network.py)
+- A local CIFAR-10 VGG checkpoint is expected at `models/vgg11_bn.pt` when using functions from [src/vgg_network.py](../image-representation-analysis/src/vgg_network.py)
 
 Feature caching is handled by `compute_or_load_features(...)`. If a matching `.npz` file already exists, the project loads it instead of recomputing features.
 
 ## Module Overview
 
-[src/dataset.py](/Users/haykw/Local/image-representation-analysis/src/dataset.py)
+[src/dataset.py](../image-representation-analysis/src/dataset.py)
 
 - Downloads CIFAR-10
 - Loads train/test splits
 - Applies CIFAR-10 normalization statistics
 
-[src/extract_feature.py](/Users/haykw/Local/image-representation-analysis/src/extract_feature.py)
+[src/extract_feature.py](../image-representation-analysis/src/extract_feature.py)
 
 - Computes raw pixel features
 - Computes HOG features
 - Extracts CNN features from VGG-11
 - Saves and reloads cached feature files
 
-[src/models.py](/Users/haykw/Local/image-representation-analysis/src/models.py)
+[src/models.py](../image-representation-analysis/src/models.py)
 
 - Trains and evaluates a 1-nearest-neighbor classifier
 
-[src/visualization.py](/Users/haykw/Local/image-representation-analysis/src/visualization.py)
+[src/visualization.py](../image-representation-analysis/src/visualization.py)
 
 - Displays CIFAR-10 samples
 - Shows correct and incorrect nearest-neighbor retrieval examples
 
-[src/vgg_network.py](/Users/haykw/Local/image-representation-analysis/src/vgg_network.py)
+[src/vgg_network.py](../image-representation-analysis/src/vgg_network.py)
 
 - Defines a CIFAR-10-specific VGG model
 - Loads a local pretrained checkpoint
