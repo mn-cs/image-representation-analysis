@@ -2,26 +2,28 @@
 __pycache__/
 *.pyc
 
-# Virtual environment files
+# Virtual environment
 .venv/
 
-# Jupyter notebook checkpoints
+# Jupyter
 .ipynb_checkpoints/
 
-# Data / outputs that should not be tracked
+# Data / outputs (ignored but directories kept)
 datasets/*
 models/*
 features/*
 
-# keep specific model files that are important for the project
-!models/vgg11_bn.pt
+# Keep directory structure
+!datasets/
+!models/
+!features/
+!reports/
 
-# keep empty directories for datasets, models, features, and reports
 !datasets/.gitkeep
 !models/.gitkeep
 !features/.gitkeep
 !reports/.gitkeep
 
-# OS / editor specific files
+# OS / editor
 .DS_Store
 .vscode/
