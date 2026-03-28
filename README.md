@@ -1,222 +1,186 @@
-# CIFAR-10 Feature Representation Analysis
+# Image Representation Analysis
 
-A comprehensive study comparing different image feature representations for visual recognition tasks. This project implements and evaluates multiple feature extraction methods including raw pixels, traditional computer vision features (HOG), and deep learning representations (CNN features) on the CIFAR-10 dataset.
+This project compares several image representations on CIFAR-10 using a simple 1-nearest-neighbor evaluation pipeline. It includes classic hand-crafted features, deep features from VGG-11, dataset utilities, feature caching, and a notebook that walks through the full analysis.
 
-## Quick Start
+## What the Project Does
 
-```bash
-# Clone the repository
-git clone https://github.com/micben-cs/image-representation.git
-cd image-representation
+- Downloads and loads CIFAR-10 in `(N, C, H, W)` format
+- Extracts and caches multiple feature representations
+- Evaluates each representation with a 1-NN classifier
+- Visualizes sample images and nearest-neighbor retrieval results
+- Supports both pretrained and randomly initialized CNN feature extractors
 
-# Install dependencies using uv (recommended)
-uv sync
+## Representations Included
 
-```
+- `raw_pixel`: flattened image vectors
+- `hog`: Histogram of Oriented Gradients descriptors
+- `pretrained_cnn`:
+  - `last_conv`
+  - `last_fc`
+- `random_cnn`:
+  - `last_conv`
+  - `last_fc`
 
-### Using pip
+## Repository Layout
 
-# Run the main analysis
-
-python main.py
-
-# Or explore interactively
-
-jupyter lab feature_analysis.ipynb
-
-## Features & Capabilities
-
-- **Multiple Feature Extraction Methods**: Raw pixels, HOG descriptors, and CNN features
-- **Pretrained Model Integration**: VGG-11 with batch normalization for feature extraction
-- **Comprehensive Evaluation**: k-NN classification across different representation spaces
-- **Visualization Tools**: Dataset exploration and feature space analysis
-- **Modular Architecture**: Easy to extend with additional feature extractors
-
-### Supported Representations
-
-1. **Raw Pixel Features** - Direct pixel intensity vectors
-2. **HOG Features** - Histogram of Oriented Gradients for edge/texture capture
-3. **CNN Features** - Deep representations from VGG-11 at multiple levels
-   - Intermediate layer activations
-   - Final layer features
-   - Comparison with randomly initialized networks
-
-## Project Structure
-
-```
-cifar-representations/
-├── feature_analysis.ipynb          ← Interactive analysis and experiments
-├── main.py                         ← Main execution script
-├── dataset.py                      ← CIFAR-10 data loading and preprocessing
-├── extract_feature.py              ← Feature extraction implementations
-├── vgg_network.py                  ← VGG-11 neural network architecture
-├── visual_nn_results.py            ← Results visualization utilities
-├── path.py                         ← Path configuration management
-├── pyproject.toml                  ← Project dependencies and metadata
-├── uv.lock                         ← Dependency lock file
-├── models/                         ← Pretrained model weights (auto-downloaded)
-│   └── vgg11_bn.pt                 ← VGG-11 with batch normalization
-├── datasets/                       ← CIFAR-10 dataset (auto-downloaded)
-├── features/                       ← Extracted features cache (.gitignored)
-└── __pycache__/                    ← Python cache files (.gitignored)
+```text
+image-representation-analysis/
+├── README.md
+├── pyproject.toml
+├── uv.lock
+├── datasets/
+├── features/
+├── models/
+│   └── vgg11_bn.pt
+├── notebooks/
+│   └── feature_analysis.ipynb
+├── reports/
+└── src/
+    ├── __init__.py
+    ├── dataset.py
+    ├── extract_feature.py
+    ├── models.py
+    ├── path.py
+    ├── vgg_network.py
+    └── visualization.py
 ```
 
 ## Requirements
 
-- **Python**: 3.12+
-- **Core Dependencies**:
-  - PyTorch 2.8+ (CPU sufficient, GPU optional for faster processing)
-  - scikit-learn 1.7+ for machine learning utilities
-  - scikit-image for HOG feature extraction
-  - NumPy, Matplotlib for numerical computing and visualization
-  - Jupyter Lab/Notebook for interactive analysis
+- Python `>=3.14`
+- `torch`
+- `torchvision`
+- `numpy`
+- `scikit-learn`
+- `scikit-image`
+- `matplotlib`
+- `tqdm`
+- `ipykernel`
+- `huggingface-hub`
+- `requests`
+- `torchinfo`
 
-All dependencies are managed via `pyproject.toml` with locked versions in `uv.lock` for reproducible builds.
+Dependencies are defined in [pyproject.toml](/Users/haykw/Local/image-representation-analysis/pyproject.toml).
 
 ## Installation
 
-### Using uv (Recommended)
+Using `uv`:
 
 ```bash
-# Install uv if not already installed
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Clone and setup the project
-git clone https://github.com/micben-cs/image-representation.git
-cd image-representation
 uv sync
 ```
 
-### Using pip
+Using `pip`:
 
 ```bash
-git clone https://github.com/micben-cs/image-representation.git
-cd image-representation
 pip install -e .
 ```
 
-## Usage
+## Running the Analysis
 
-### Quick Start
+The main workflow lives in [notebooks/feature_analysis.ipynb](/Users/haykw/Local/image-representation-analysis/notebooks/feature_analysis.ipynb).
 
-1. **Download CIFAR-10 dataset:**
-
-   ```python
-   from dataset import download_cifar10_dataset
-   download_cifar10_dataset()
-   ```
-
-2. **Load the dataset:**
-
-   ```python
-   from dataset import load_dataset_splits
-   x_train, y_train, x_test, y_test = load_dataset_splits()
-   ```
-
-3. **Extract features:**
-   ```python
-   from extract_feature import compute_raw_pixel_features, compute_hog_features
-   # Raw pixel features
-   raw_train, raw_test = compute_raw_pixel_features(x_train, x_test)
-   # HOG features
-   hog_train, hog_test = compute_hog_features(x_train, x_test)
-   ```
-
-### Running the Analysis
-
-**Command Line Interface:**
+Start Jupyter:
 
 ```bash
-python main.py
+uv run jupyter lab
 ```
 
-**Interactive Analysis:**
+Then open `notebooks/feature_analysis.ipynb`.
 
-```bash
-jupyter lab feature_analysis.ipynb
+## Programmatic Usage
+
+Load the dataset:
+
+```python
+from src.dataset import download_cifar10_dataset, load_dataset_splits
+
+download_cifar10_dataset()
+x_train, y_train, x_test, y_test = load_dataset_splits()
 ```
 
-The analysis pipeline includes:
+Extract or load cached features:
 
-- Automatic CIFAR-10 dataset downloading and preprocessing
-- Feature extraction across multiple representation methods
-- k-NN classification evaluation with performance metrics
-- Visualization of results and feature spaces
+```python
+from src.extract_feature import compute_or_load_features
 
-## Key Functions
+raw_train, raw_test = compute_or_load_features(x_train, x_test, "raw_pixel")
+hog_train, hog_test = compute_or_load_features(x_train, x_test, "hog")
 
-### Dataset Operations (`dataset.py`)
-
-- `download_cifar10_dataset()` - Downloads CIFAR-10 dataset
-- `load_dataset_splits()` - Loads train/test splits
-- `visualize_cifar_data()` - Displays sample images from each class
-
-### Feature Extraction (`extract_feature.py`)
-
-- `compute_raw_pixel_features()` - Flattens images to pixel vectors
-- `compute_hog_features()` - Extracts HOG descriptors
-- `compute_cnn_features()` - Extracts CNN features from VGG-11
-
-### VGG Network (`vgg_network.py`)
-
-- `VGG` class - VGG-11 architecture for CIFAR-10
-- `vgg11_bn()` - Creates VGG-11 with batch normalization
-- `load_pretrained_vgg()` - Loads pretrained weights
-
-## Performance Considerations
-
-- **Hardware Requirements**: Runs efficiently on CPU-only systems; GPU acceleration optional
-- **Memory Usage**: CNN feature extraction may require 4-8GB RAM for full dataset processing
-- **Processing Time**: Full feature extraction typically completes within 10-30 minutes on modern hardware
-
-## Methodology
-
-This project implements a systematic comparison of image representation methods:
-
-1. **Data Pipeline**: Automated CIFAR-10 download, preprocessing, and normalization
-2. **Feature Extraction**: Multiple representation methods with consistent preprocessing
-3. **Classification**: k-nearest neighbor evaluation across feature spaces
-4. **Evaluation**: Comprehensive performance metrics and statistical analysis
-5. **Visualization**: Feature space analysis and results interpretation
-
-## Results
-
-The project demonstrates how different image representations affect classification performance:
-
-- Raw pixels provide baseline performance
-- HOG features capture edge and texture information
-- Pretrained CNN features leverage learned representations
-- Random CNN features show the importance of training
-
-## Contributing
-
-We welcome contributions! Please feel free to:
-
-- Submit bug reports and feature requests via GitHub Issues
-- Propose new feature extraction methods
-- Improve documentation and examples
-- Add support for additional datasets
-
-## Citation
-
-If you use this code in your research, please cite:
-
-```bibtex
-@software{image_representation_analysis,
-  title={Image Representation Analysis},
-  author={micben-cs},
-  year={2025},
-  url={https://github.com/micben-cs/image-representation}
-}
+pretrained_conv_train, pretrained_conv_test = compute_or_load_features(
+    x_train, x_test, "pretrained_cnn", layer="last_conv"
+)
 ```
 
-## References
+Run 1-nearest-neighbor evaluation:
 
-- [CIFAR-10 Dataset](https://www.cs.toronto.edu/~kriz/cifar.html)
-- [VGG Architecture](https://arxiv.org/abs/1409.1556)
-- [HOG Features](https://en.wikipedia.org/wiki/Histogram_of_oriented_gradients)
-- [PyTorch CIFAR-10 VGG Implementation](https://github.com/huyvnphan/PyTorch_CIFAR10)
+```python
+from src.models import run_nearest_neighbor
 
-## License
+classifier = run_nearest_neighbor(raw_train, y_train, raw_test, y_test)
+```
 
-This project is for educational purposes. Dataset and model weights follow their respective licenses.
+Visualize examples and nearest neighbors:
+
+```python
+from src.visualization import visualize_cifar_data, visualize_nearest_neighbors
+
+visualize_cifar_data(x_train.transpose(0, 2, 3, 1), y_train)
+visualize_nearest_neighbors(
+    x_test, y_test, x_train, y_train, classifier, raw_test, feature_name="raw_pixel"
+)
+```
+
+## Data and Model Artifacts
+
+- CIFAR-10 is downloaded into `datasets/cifar-10-batches-py/`
+- Cached feature arrays are stored in `features/*.npz`
+- A local CIFAR-10 VGG checkpoint is expected at `models/vgg11_bn.pt` when using functions from [src/vgg_network.py](/Users/haykw/Local/image-representation-analysis/src/vgg_network.py)
+
+Feature caching is handled by `compute_or_load_features(...)`. If a matching `.npz` file already exists, the project loads it instead of recomputing features.
+
+## Module Overview
+
+[src/dataset.py](/Users/haykw/Local/image-representation-analysis/src/dataset.py)
+
+- Downloads CIFAR-10
+- Loads train/test splits
+- Applies CIFAR-10 normalization statistics
+
+[src/extract_feature.py](/Users/haykw/Local/image-representation-analysis/src/extract_feature.py)
+
+- Computes raw pixel features
+- Computes HOG features
+- Extracts CNN features from VGG-11
+- Saves and reloads cached feature files
+
+[src/models.py](/Users/haykw/Local/image-representation-analysis/src/models.py)
+
+- Trains and evaluates a 1-nearest-neighbor classifier
+
+[src/visualization.py](/Users/haykw/Local/image-representation-analysis/src/visualization.py)
+
+- Displays CIFAR-10 samples
+- Shows correct and incorrect nearest-neighbor retrieval examples
+
+[src/vgg_network.py](/Users/haykw/Local/image-representation-analysis/src/vgg_network.py)
+
+- Defines a CIFAR-10-specific VGG model
+- Loads a local pretrained checkpoint
+- Evaluates the checkpoint on the test set
+
+## Notes
+
+- `src/extract_feature.py` uses `torchvision.models.vgg11_bn` for pretrained and random feature extraction.
+- `src/vgg_network.py` defines a separate CIFAR-10 VGG implementation that expects a local checkpoint file.
+- CNN feature extraction automatically uses CUDA when available and falls back to CPU otherwise.
+
+## Output
+
+During a typical run, you should expect:
+
+- printed dataset shapes
+- printed feature matrix shapes
+- cached `.npz` feature files under `features/`
+- 1-NN accuracy values on the CIFAR-10 test split
+- matplotlib figures for samples and nearest-neighbor matches

@@ -1,37 +1,27 @@
-# Python-generated files
+# Python cache and compiled files
 __pycache__/
-*.py[oc]
-build/
-*.egg-info
+*.pyc
 
-# Virtual environments
+# Virtual environment files
 .venv/
-venv/
-ENV/
-env/
-env.bak/
-venv.bak/
 
-# Environment files
-.env
-# IDE files
-.vscode/
-.idea/
-# macOS files
-.DS_Store
-# Logs
-*.log
-# Jupyter Notebook checkpoints
+# Jupyter notebook checkpoints
 .ipynb_checkpoints/
 
-# mypy cache
-.mypy_cache/
+# Data / outputs that should not be tracked
+datasets/*
+models/*
+features/*
 
-# Datasets (large files, reproducibly downloadable)
-datasets/
+# keep specific model files that are important for the project
+!models/vgg11_bn.pt
 
-# Cached features (large files, reproducibly generated)
-features/
+# keep empty directories for datasets, models, features, and reports
+!datasets/.gitkeep
+!models/.gitkeep
+!features/.gitkeep
+!reports/.gitkeep
 
-# Model files (large files, can be downloaded)
-models/
+# OS / editor specific files
+.DS_Store
+.vscode/
